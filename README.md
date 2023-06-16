@@ -18,3 +18,4 @@
 
 10. se comenzó con el desarrollo del router para user, y para tener el conocimiento de las acciones ejecutadas por consola, se utilizó el paquete morgan para seguir el resultado de las peticiones http, ´posteriormente se siguió con el enrutado para book y library,
 11. creación de los modelos para cada entidad,
+    S
