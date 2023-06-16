@@ -18,4 +18,6 @@
 
 10. se comenzó con el desarrollo del router para user, y para tener el conocimiento de las acciones ejecutadas por consola, se utilizó el paquete morgan para seguir el resultado de las peticiones http, ´posteriormente se siguió con el enrutado para book y library,
 11. creación de los modelos para cada entidad,
-    S
+12. creación de user providers, e instalación del paquete bcrypt para la encriptación de contraseña al guardar en la BD, para esto se generó la carpeta helpers adonde van a estar las funciones que, justamente, "ayudan" a la lógica del negocio como la encriptación y la tokenización (a futuro),
+13. encriptación en el archivo helpers/bcrypt.js, en donde se generan 2 funciones, una para crear el hash de la contraseña y otra para chequearla cuando se haga el login,
+14. se agregó al .gitignore el archivo .env y se creó el archivo .env.example para que esten especificadas las variables utilzadas,
