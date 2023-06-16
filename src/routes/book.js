@@ -1,22 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-//Importar rutas para Librerias, Usuarios y Libros
-router.get('/', (req, res) => {
-    res.send('Ver todos los libros')
-})
-router.get('/:id', (req, res) => {
-    res.send('Buscar libro por Id')
-})
-router.post('/', (req, res) => {
-    res.send('Crear libro')
-})
-router.put('/', (req, res) => {
-    res.send('Modificar libro')
-})
-router.delete('/', (req, res) => {
-    res.send('Eliminar libro')
-})
+//Importar rutas para Bookrerias, Usuarios y Bookros
+const {
+  BookController,
+} = require('../controllers');
 
+router.get('/', BookController.getAllBook);
+router.get('/:id', BookController.getOneBook);
+router.post('/', BookController.newBook);
+router.put('/:id', BookController.modBook);
+router.delete('/:id', BookController.deleteBookr);
 
 module.exports = router;

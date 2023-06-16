@@ -15,7 +15,7 @@ const createUserProv = async user => {
       email: email,
       password: await bcrypt.hash(
         password,
-        parseInt(10)
+        parseInt(process.env.SALT)
       ),
       role: role,
     });

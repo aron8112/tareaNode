@@ -1,21 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const {
+  LibraryController,
+} = require('../controllers');
 
-//Importar rutas para Librerias, Usuarios y Libros
-router.get('/', (req, res) => {
-    res.send('Ver todos los librerias')
-})
-router.get('/:id', (req, res) => {
-    res.send('Buscar libreria por Id')
-})
-router.post('/', (req, res) => {
-    res.send('Crear libreria')
-})
-router.put('/', (req, res) => {
-    res.send('Modificar libreria')
-})
-router.delete('/', (req, res) => {
-    res.send('Eliminar libreria')
-})
+router.get('/', LibraryController.getAllLib);
+router.get('/:id', LibraryController.getOneLib);
+router.post('/', LibraryController.newLib);
+router.put('/:id', LibraryController.modLib);
+router.delete(
+  '/:id',
+  LibraryController.deleteLibr
+);
 
 module.exports = router;

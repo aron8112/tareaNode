@@ -4,25 +4,35 @@ const {
 } = require('../config/db-config');
 const BooksModel = require('./book');
 
-const LibraryModel = sequelize.define('library', {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
+const LibraryModel = sequelize.define(
+  'library',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
+    },
   },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  location: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  phone: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-});
+  {
+    paranoid: true,
+    deletedAt: 'destroyTime',
+  }
+);
 
 // LibraryModel.hasMany(Books);
 // BooksModel.belongsTo(Library);
