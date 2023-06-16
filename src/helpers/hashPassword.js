@@ -1,8 +1,9 @@
 const bcrypt = require('bcrypt');
-const salt = process.env.SALT_ROUNDS;
 
 const hashPassword = async (password, salt) => {
-  await bcrypt.hash(password, salt);
+  password.toString();
+
+  await bcrypt.hash(password, parseInt(salt));
 };
 
 const checkPassword = async (
@@ -13,7 +14,6 @@ const checkPassword = async (
 };
 
 module.exports = {
-  salt,
   hashPassword,
   checkPassword,
 };

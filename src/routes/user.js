@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const {
+  UserController,
+} = require('../controllers');
 
 //Importar rutas para Librerias, Usuarios y Libros
-router.get('/', (req, res) => {
-    res.send('Debe registrarse para continuar').redirect('/login')
-})
-router.get('/login', (req, res) => {
-    res.send('este es el login')
-})
+router.post('/', UserController.createUser);
+router.post('/login', UserController.login);
 
 module.exports = router;

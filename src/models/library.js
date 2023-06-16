@@ -24,7 +24,7 @@ const LibraryModel = sequelize.define('library', {
   },
 });
 
-LibraryModel.hasMany(BooksModel);
-BooksModel.belongsTo(LibraryModel);
+// LibraryModel.hasMany(Books);
+// BooksModel.belongsTo(Library);
 
 module.exports = LibraryModel;

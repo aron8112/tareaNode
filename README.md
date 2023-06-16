@@ -21,3 +21,6 @@
 12. creación de user providers, e instalación del paquete bcrypt para la encriptación de contraseña al guardar en la BD, para esto se generó la carpeta helpers adonde van a estar las funciones que, justamente, "ayudan" a la lógica del negocio como la encriptación y la tokenización (a futuro),
 13. encriptación en el archivo helpers/bcrypt.js, en donde se generan 2 funciones, una para crear el hash de la contraseña y otra para chequearla cuando se haga el login,
 14. se agregó al .gitignore el archivo .env y se creó el archivo .env.example para que esten especificadas las variables utilzadas,
+15. Después de varios errores e intentos se modificó en la creación del usuario la encriptación de la contraseña, dejando de lado la opción del archivo hashPassword.js,
+    --> para esto se hizo una desestructuración del req.body para poder separar los campos, particularmente el de password para lograr la encriptación <--
+16. generación de las rutas para la creación de nuevos usuarios (/api/v1/user/) y buscar usuario (/api/v1/user/login) para un "login" que más adelante generará un token de acceso,
