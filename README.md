@@ -42,6 +42,9 @@
 20. creación del archivo 'validators.js' en donde se implementarán las funciones para hacer de middlewares en las rutas de cada entidad (User, Book, Library). En un primer término se implementó la función 'checkPostUserData' para que valide los campos al crear un usuario (hacer un registro de usuario) y luego 'validateFields' para que si error/es corte el envío de datos y devuelva la respuesta con un status de 400 y un array con el/los error/es que van en el req body.
 21. A continuación se implementaron funciones similares para las otras entidades de Books y Library.
 
-# MIDDLEWARE PARA AUTORIZACIÓN
+# MIDDLEWARE PARA AUTORIZACIÓN Y AUTENTICACIÓN
 
-19. Instalación del paquete 'jsonwebtoken' e implementación con 'passport' de un middleware de autorización
+22. Instalación del paquete 'jsonwebtoken' e implementación con 'passport' de un middleware de autorización,
+23. se generó la variable JWT_SECRET en el archivo .env para usar en la implementación, también el archivo token.js para que cree el token, en el que el payload es el id, username y role. Se reutilizó la autenticación hecha en clases, pero se modificó para adaptarla al role = 0 usado en esta API.
+24. Modificación en el userProvider, para que devuelva el token solamente y, también, se implementó el middleware de autorización para admin (role=0) en las rutas distintas de GET, y autenticación para las rutas GET(/:id) para cualquier usuario(role=1). Es decir, que el visitante solo tendrá acceso a las rutas de User (para registrarse o loguearse) y a las listas para acceder a las listas, sin poder buscarla por id.
+    --> además se agregó en las validaciones el uso del email, si ya está en uso tiene que usar otro.

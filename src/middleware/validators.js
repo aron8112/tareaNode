@@ -4,6 +4,7 @@ const {
   oneOf,
   param,
 } = require('express-validator');
+const { UserModel } = require('../models');
 
 const validateFields = validations => {
   return async (req, res, next) => {
@@ -23,20 +24,51 @@ const validateFields = validations => {
   };
 };
 
-const checkPostUserData = validateFields([
-  body('username', 'Must have an username')
-    .isString()
-    .notEmpty(),
-  body('email', 'Must be a valid e-mail address')
-    .isEmail()
-    .notEmpty(),
-  body(
-    'password',
-    'The password must be at least 6 characters, and must contain a symbol'
-  )
-    .isStrongPassword()
-    .notEmpty(),
-]);
+const checkPostUserData = async (
+  req,
+  res,
+  next
+) => {
+  try {
+    validateFields([
+      body(
+        'email',
+        'Must be a valid e-mail address'
+      )
+        .isEmail()
+        .notEmpty(),
+    ]);
+    const { email } = req.body;
+    const foundUser = await UserModel.findOne({
+      where: { email: email },
+    });
+    if (foundUser) {
+      return res.status(400).json({
+        action: 'validateUser',
+        message:
+          'Email already in use, please use another email',
+      });
+    } else {
+      validateFields([
+        body('username', 'Must have an username')
+          .isString()
+          .notEmpty(),
+        body(
+          'password',
+          'The password must be at least 6 characters, and must contain a symbol'
+        )
+          .isStrongPassword()
+          .notEmpty(),
+      ]);
+      next();
+    }
+  } catch (error) {
+    return res.status(500).json({
+      action: 'validateUser',
+      error: error.message,
+    });
+  }
+};
 
 const checkUserLogIn = validateFields([
   body('email', 'Must be a valid e-mail address')

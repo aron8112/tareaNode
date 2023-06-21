@@ -1,5 +1,8 @@
 const { UserModel } = require('../models');
 const bcrypt = require('bcrypt');
+const {
+  tokenSign,
+} = require('../middleware/token');
 
 const createUserProv = async user => {
   const {
@@ -10,7 +13,7 @@ const createUserProv = async user => {
   } = user;
 
   try {
-    const newUser = UserModel.create({
+    const newUser = await UserModel.create({
       username: username,
       email: email,
       password: await bcrypt.hash(
@@ -20,7 +23,13 @@ const createUserProv = async user => {
       role: role,
     });
     if (newUser) {
-      return newUser;
+      const token = tokenSign(newUser);
+      // const result = {
+      //   token: token,
+      //   user: newUser,
+      // };
+
+      return token;
     }
   } catch (error) {
     console.log(
@@ -43,7 +52,12 @@ const loginProv = async user => {
     );
 
     if (password) {
-      return foundUser;
+      const token = tokenSign(foundUser);
+      // const result = {
+      //   token: token,
+      //   user: foundUser,
+      // };
+      return token;
     } else {
       return false;
     }

@@ -1,3 +1,6 @@
+const {
+  verifyToken,
+} = require('../middleware/token');
 const { UserServ } = require('../services');
 
 const createUser = async (req, res) => {
@@ -19,9 +22,8 @@ const login = async (req, res) => {
     const foundUser = await UserServ.loginServ(
       req.body
     );
-    res.status(200).json({
-      message: `Bienvenido ${foundUser.username}`,
-    });
+
+    res.status(200).json(foundUser);
   } catch (err) {
     res.status(500).json({
       action: 'Login',
