@@ -5,9 +5,9 @@ const createUser = async (req, res) => {
     const newUser = await UserServ.createUserServ(
       req.body
     );
-    res.status(201).json(newUser);
+    return res.status(201).json(newUser);
   } catch (err) {
-    res.status(500).json({
+    return res.status(500).json({
       action: 'createUser',
       error: err.message,
     });

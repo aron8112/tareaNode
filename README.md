@@ -35,3 +35,13 @@
 # BOOK
 
 18. creación de las funciones en providers, services y controllers, además del enrutado para acceder a los datos. Aclaración: no hay relación entre tablas books y library
+
+# VALIDACIÓN DE INPUTS
+
+19. Instalación del paquete 'express-validator' e implementación como middleware para validar inputs en las rutas en donde se hagan peticiones http (POST, PUT, DELETE) que modifiquen algún dato en la BD.
+20. creación del archivo 'validators.js' en donde se implementarán las funciones para hacer de middlewares en las rutas de cada entidad (User, Book, Library). En un primer término se implementó la función 'checkPostUserData' para que valide los campos al crear un usuario (hacer un registro de usuario) y luego 'validateFields' para que si error/es corte el envío de datos y devuelva la respuesta con un status de 400 y un array con el/los error/es que van en el req body.
+21. A continuación se implementaron funciones similares para las otras entidades de Books y Library.
+
+# MIDDLEWARE PARA AUTORIZACIÓN
+
+19. Instalación del paquete 'jsonwebtoken' e implementación con 'passport' de un middleware de autorización

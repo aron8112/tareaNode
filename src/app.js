@@ -16,6 +16,9 @@ var fs = require('fs');
 var morgan = require('morgan');
 var path = require('path');
 const {
+  catchError,
+} = require('./helpers/catchError');
+const {
   initializeDB,
 } = require('./config/db-config');
 var accessLogStream = fs.createWriteStream(
@@ -25,6 +28,7 @@ var accessLogStream = fs.createWriteStream(
 app.use(
   morgan('combined', { stream: accessLogStream })
 );
+app.use(catchError);
 
 app.get('/', (req, res) => {
   res.status(200).json({

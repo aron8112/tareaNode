@@ -3,9 +3,20 @@ const router = express.Router();
 const {
   UserController,
 } = require('../controllers');
+const {
+  checkPostUserData,
+  checkUserLogIn,
+} = require('../middleware/validators');
 
-//Importar rutas para Librerias, Usuarios y Libros
-router.post('/', UserController.createUser);
-router.post('/login', UserController.login);
+router.post(
+  '/',
+  checkPostUserData,
+  UserController.createUser
+);
+router.post(
+  '/login',
+  checkUserLogIn,
+  UserController.login
+);
 
 module.exports = router;

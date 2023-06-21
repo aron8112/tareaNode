@@ -1,15 +1,30 @@
 const express = require('express');
 const router = express.Router();
-
-//Importar rutas para Bookrerias, Usuarios y Bookros
 const {
   BookController,
 } = require('../controllers');
+const {
+  checkBookCreation,
+  checkBookModif,
+  deleteBookMdw,
+} = require('../middleware/validators');
 
 router.get('/', BookController.getAllBook);
 router.get('/:id', BookController.getOneBook);
-router.post('/', BookController.newBook);
-router.put('/:id', BookController.modBook);
-router.delete('/:id', BookController.deleteBookr);
+router.post(
+  '/',
+  checkBookCreation,
+  BookController.newBook
+);
+router.put(
+  '/:id',
+  checkBookModif,
+  BookController.modBook
+);
+router.delete(
+  '/:id',
+  deleteBookMdw,
+  BookController.deleteBookr
+);
 
 module.exports = router;
