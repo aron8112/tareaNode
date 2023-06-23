@@ -1,4 +1,7 @@
 const { LibraryServ } = require('../services');
+const {
+  addBooksServ,
+} = require('../services/library');
 
 const newLib = async (req, res) => {
   const library = req.body;
@@ -87,9 +90,35 @@ const modLib = async (req, res) => {
     });
   }
 };
+const addBookInLib = async (req, res) => {
+  const { id } = req.params;
+  const book = req.body;
+  console.log(`Library id: ${id}, booK: ${book}`);
+  try {
+    const foundLib =
+      await LibraryServ.getOneLibServ(id);
+    if (foundLib) {
+      const addBook =
+        await LibraryServ.addBooksServ(id, book);
+      return res.status(201).json({
+        message: `The book was added successfully to ${foundLib.name} Library`,
+        addBook,
+      });
+    }
+    return res.status(404).json({
+      message: `The Library with ID: ${id} was not found`,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      action: 'Adding a book in the Library',
+      error: error.message,
+    });
+  }
+};
 
 module.exports = {
   newLib,
+  addBookInLib,
   getOneLib,
   getAllLib,
   deleteLibr,

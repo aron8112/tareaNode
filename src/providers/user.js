@@ -1,4 +1,4 @@
-const { UserModel } = require('../models');
+const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const {
   tokenSign,
@@ -13,7 +13,7 @@ const createUserProv = async user => {
   } = user;
 
   try {
-    const newUser = await UserModel.create({
+    const newUser = await User.create({
       username: username,
       email: email,
       password: await bcrypt.hash(
@@ -43,7 +43,7 @@ const createUserProv = async user => {
 const loginProv = async user => {
   try {
     let { email, password } = user;
-    const foundUser = await UserModel.findOne({
+    const foundUser = await User.findOne({
       where: { email: email },
     });
     password = await bcrypt.compare(

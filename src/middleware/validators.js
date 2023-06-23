@@ -4,7 +4,7 @@ const {
   oneOf,
   param,
 } = require('express-validator');
-const { UserModel } = require('../models');
+const { User } = require('../models');
 
 const validateFields = validations => {
   return async (req, res, next) => {
@@ -39,7 +39,7 @@ const checkPostUserData = async (
         .notEmpty(),
     ]);
     const { email } = req.body;
-    const foundUser = await UserModel.findOne({
+    const foundUser = await User.findOne({
       where: { email: email },
     });
     if (foundUser) {

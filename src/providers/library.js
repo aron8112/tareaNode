@@ -1,8 +1,8 @@
-const { LibraryModel } = require('../models');
+const { Library, Book } = require('../models');
 
 const newLibProv = async newLib => {
   try {
-    const createLib = await LibraryModel.create(
+    const createLib = await Library.create(
       newLib
     );
     return createLib;
@@ -11,9 +11,28 @@ const newLibProv = async newLib => {
   }
 };
 
+const newBookInLibProv = async (libId, book) => {
+  try {
+    const foundLib = await Library.findByPk(
+      libId
+    );
+    if (foundLib) {
+      const createBookInLib = await Book.create({
+        ...book,
+        LibraryId: libId,
+      });
+      return createBookInLib;
+    }
+    return null;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getAllLibProv = async () => {
   try {
-    const getAllLib = await LibraryModel.findAll({
+    const getAllLib = await Library.findAll({
+      include: { all: true },
       paranoid: false,
     });
     return getAllLib;
@@ -28,10 +47,10 @@ const getOneLibProv = async lib => {
   const id = parseInt(lib);
   console.log(typeof id);
   try {
-    const foundLib = await LibraryModel.findByPk(
-      id,
-      { paranoid: false }
-    );
+    const foundLib = await Library.findByPk(id, {
+      paranoid: false,
+      include: { all: true },
+    });
     return foundLib;
   } catch (error) {
     throw error;
@@ -49,12 +68,9 @@ const changeSomeLibDataProv = async (
   );
 
   try {
-    const foundLib = await LibraryModel.update(
-      data,
-      {
-        where: { id },
-      }
-    );
+    const foundLib = await Library.update(data, {
+      where: { id },
+    });
     return foundLib;
   } catch (error) {
     throw error;
@@ -63,7 +79,7 @@ const changeSomeLibDataProv = async (
 
 const deleteLibProv = async id => {
   try {
-    const deleted = await LibraryModel.destroy({
+    const deleted = await Library.destroy({
       where: { id: id },
     });
     if (deleted) return true;
@@ -74,7 +90,7 @@ const deleteLibProv = async id => {
 
 const addBooksProv = async (id, data) => {
   try {
-    const foundLib = await LibraryModel.findOne({
+    const foundLib = await Library.findOne({
       where: { id },
     });
     foundLib.set(...data);
@@ -85,6 +101,7 @@ const addBooksProv = async (id, data) => {
 
 module.exports = {
   newLibProv,
+  newBookInLibProv,
   getAllLibProv,
   getOneLibProv,
   deleteLibProv,

@@ -1,9 +1,11 @@
-const { BookModel } = require('../models');
+const { Book, Library } = require('../models');
 
-const newBookProv = async newLib => {
+const newBookProv = async newBook => {
+  const { libraryId } = newBook;
   try {
-    const createBook = await BookModel.create(
-      newLib
+    const createBook = await Book.create(
+      newBook,
+      libraryId
     );
     return createBook;
   } catch (error) {
@@ -13,8 +15,9 @@ const newBookProv = async newLib => {
 
 const getAllBookProv = async () => {
   try {
-    const getAllBook = await BookModel.findAll({
+    const getAllBook = await Book.findAll({
       paranoid: false,
+      include: { all: true },
     });
     return getAllBook;
   } catch (error) {
@@ -28,10 +31,10 @@ const getOneBookProv = async lib => {
   const id = parseInt(lib);
   console.log(typeof id);
   try {
-    const foundBook = await BookModel.findByPk(
-      id,
-      { paranoid: false }
-    );
+    const foundBook = await Book.findByPk(id, {
+      paranoid: false,
+      include: { all: true },
+    });
     return foundBook;
   } catch (error) {
     throw error;
@@ -49,12 +52,9 @@ const changeSomeBookDataProv = async (
   );
 
   try {
-    const foundBook = await BookModel.update(
-      data,
-      {
-        where: { id },
-      }
-    );
+    const foundBook = await Book.update(data, {
+      where: { id },
+    });
     return foundBook;
   } catch (error) {
     throw error;
@@ -63,7 +63,7 @@ const changeSomeBookDataProv = async (
 
 const deleteBookProv = async id => {
   try {
-    const deleted = await BookModel.destroy({
+    const deleted = await Book.destroy({
       where: { id: id },
     });
     if (deleted) return true;

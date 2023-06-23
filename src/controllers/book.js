@@ -44,7 +44,7 @@ const getAllBook = async (_req, res) => {
     return res.status(200).json(getOne);
   } catch (error) {
     return res.status(400).json({
-      action: 'Get all Bookraries',
+      action: 'Get all Books',
       error: error.message,
     });
   }

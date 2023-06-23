@@ -2,10 +2,10 @@ const { DataTypes } = require('sequelize');
 const {
   sequelize,
 } = require('../config/db-config');
-const LibraryModel = require('./library');
+const Library = require('./library');
 
-const BooksModel = sequelize.define(
-  'books',
+const Book = sequelize.define(
+  'Books',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -28,14 +28,18 @@ const BooksModel = sequelize.define(
     year: {
       type: DataTypes.INTEGER,
     },
+
     deletedAt: {
       type: DataTypes.DATE,
     },
   },
   {
     paranoid: true,
-    deletedAt: 'destroyTime',
+    // deletedAt: 'destroyTime',
   }
 );
 
-module.exports = BooksModel;
+Library.hasMany(Book);
+Book.belongsTo(Library);
+
+module.exports = Book;

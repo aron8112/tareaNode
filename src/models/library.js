@@ -2,10 +2,10 @@ const { DataTypes } = require('sequelize');
 const {
   sequelize,
 } = require('../config/db-config');
-const BooksModel = require('./book');
+const Book = require('./book');
 
-const LibraryModel = sequelize.define(
-  'library',
+const Library = sequelize.define(
+  'Libraries',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -30,11 +30,15 @@ const LibraryModel = sequelize.define(
   },
   {
     paranoid: true,
-    deletedAt: 'destroyTime',
+    // deletedAt: 'destroyTime',
   }
 );
 
-// LibraryModel.hasMany(Books);
-// BooksModel.belongsTo(Library);
+// LibraryModel.belongsToMany('BookModel', {
+//   through: 'LibraryBook',
+// });
+// BookModel.belongsToMany('LibraryModel', {
+//   through: 'LibraryBook',
+// });
 
-module.exports = LibraryModel;
+module.exports = Library;

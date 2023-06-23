@@ -37,7 +37,14 @@ const deleteLibServ = async id => {
   return true;
 };
 
-const addBooksServ = async (id, data) => {};
+const addBooksServ = async (libid, book) => {
+  const newBookInLib =
+    await LibraryProv.newBookInLibProv(
+      libid,
+      book
+    );
+  return newBookInLib;
+};
 
 module.exports = {
   newLibServ,

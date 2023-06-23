@@ -13,11 +13,7 @@ const {
   isAdminMdw,
 } = require('../middleware/auth');
 
-router.get(
-  '/',
-  jwtValidMDW,
-  LibraryController.getAllLib
-);
+router.get('/', LibraryController.getAllLib);
 router.get(
   '/:id',
   jwtValidMDW,
@@ -40,6 +36,10 @@ router.delete(
   isAdminMdw,
   deleteLibMdw,
   LibraryController.deleteLibr
+);
+router.post(
+  '/:id/addbook',
+  LibraryController.addBookInLib
 );
 
 module.exports = router;

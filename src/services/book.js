@@ -1,4 +1,7 @@
 const { BookProv } = require('../providers');
+const {
+  newBookInLibProv,
+} = require('../providers/library');
 
 const newBookServ = async newBook => {
   const createBook = await BookProv.newBookProv(
@@ -36,8 +39,6 @@ const deleteBookServ = async id => {
     await BookProv.deleteBookProv(id);
   return true;
 };
-
-const addBooksServ = async (id, data) => {};
 
 module.exports = {
   newBookServ,
