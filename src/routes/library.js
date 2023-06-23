@@ -39,6 +39,8 @@ router.delete(
 );
 router.post(
   '/:id/addbook',
+  isAdminMdw,
+  checkLibCreation,
   LibraryController.addBookInLib
 );
 

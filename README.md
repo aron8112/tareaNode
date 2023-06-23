@@ -48,3 +48,8 @@
 23. se generó la variable JWT_SECRET en el archivo .env para usar en la implementación, también el archivo token.js para que cree el token, en el que el payload es el id, username y role. Se reutilizó la autenticación hecha en clases, pero se modificó para adaptarla al role = 0 usado en esta API.
 24. Modificación en el userProvider, para que devuelva el token solamente y, también, se implementó el middleware de autorización para admin (role=0) en las rutas distintas de GET, y autenticación para las rutas GET(/:id) para cualquier usuario(role=1). Es decir, que el visitante solo tendrá acceso a las rutas de User (para registrarse o loguearse) y a las listas para acceder a las listas, sin poder buscarla por id.
     --> además se agregó en las validaciones el uso del email, si ya está en uso tiene que usar otro.
+
+# ASOCIACIONES ENTRE ENTIDADES
+
+25. en el modelo de Book, se generaron las asociaciones correspondientes de Book a Library con hasMany y de Library a Book con belongsTo. También se agregó la opción "include: { all: true }" cuando busque, ya sea por id o el listado total en libros y bibliotecas, para que devuelva el conjunto de datos.
+26. se agregaron en el router los middleware para validar la entrada de datos y chequear que sea admin quien genera el cambio para la ruta library/:id/addbook
